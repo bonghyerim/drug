@@ -3,10 +3,13 @@
     <base-config cleartextTrafficPermitted="false">
         <trust-anchors>
             <!-- Include your trusted SSL certificates here -->
+            <certificates src="system" />
+            <certificates src="user" />
         </trust-anchors>
     </base-config>
 
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">apis.data.go.kr</domain>
+        <domain includeSubdomains="true">nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/</domain>
     </domain-config>
 </network-security-config>
