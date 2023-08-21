@@ -16,6 +16,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bonghyerim.drug.config.Config;
+import com.bonghyerim.drug.model.Drug;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
         JsonObjectRequest request = new JsonObjectRequest(
                 Request.Method.GET,
-                Config.HOST + Config.PATH + Config.API_KEY + "&pageNo=1&numOfRows=3&entpName=&itemName=" + "아스피린" + "&type=json",
+                Config.HOST + Config.PATH + Config.API_KEY + "&pageNo=1&numOfRows=10&entpName=&itemName=" + "아스피린" + "&type=json",
                 null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -68,47 +69,49 @@ public class MainActivity extends AppCompatActivity {
                             JSONArray items = body.getJSONArray("items");
                             JSONObject firstItem = items.getJSONObject(0);
 
-                            String itemNameText = firstItem.getString("itemName");
-                            String entpNameText = firstItem.getString("entpName");
-                            int itemSeqText = Integer.parseInt(firstItem.getString("itemSeq")); // 파싱한 문자열을 정수로 변환
-                            String efcyQesitmText = firstItem.getString("efcyQesitm");
-                            String useMethodQesitmText = firstItem.getString("useMethodQesitm");
-                            String atpnWarnQesitmText = firstItem.optString("atpnWarnQesitm", "정보없음"); // 기본값을 설정하여 null 처리
-                            String atpnQesitmText = firstItem.optString("atpnQesitm", "정보없음"); // 기본값을 설정하여 null 처리
-                            String depositMethodQesitmText = firstItem.getString("depositMethodQesitm");
-                            String itemImageUrl = firstItem.getString("itemImage");
+
+                            Drug drug = new Drug();
+                            drug.itemNameText = firstItem.getString("itemName");
+                            drug.entpNameText = firstItem.getString("entpName");
+                            drug.itemSeqText = Integer.parseInt(firstItem.getString("itemSeq")); // 파싱한 문자열을 정수로 변환
+                            drug.efcyQesitmText = firstItem.getString("efcyQesitm");
+                            drug.useMethodQesitmText = firstItem.getString("useMethodQesitm");
+                            drug.atpnWarnQesitmText = firstItem.optString("atpnWarnQesitm", "정보없음"); // 기본값을 설정하여 null 처리
+                            drug.atpnQesitmText = firstItem.optString("atpnQesitm", "정보없음"); // 기본값을 설정하여 null 처리
+                            drug.depositMethodQesitmText = firstItem.getString("depositMethodQesitm");
+                            drug.itemImageUrl = firstItem.getString("itemImage");
 
 
 
 
-                            itemName.setText(itemNameText+"");
-                            entpName.setText(entpNameText+"");
-                            itemSeq.setText(itemSeqText+"");
-                            efcyQesitm.setText(efcyQesitmText+"");
-                            useMethodQesitm.setText(useMethodQesitmText+"");
+                            itemName.setText(drug.itemNameText+"");
+                            entpName.setText(drug.entpNameText+"");
+                            itemSeq.setText(drug.itemSeqText+"");
+                            efcyQesitm.setText(drug.efcyQesitmText+"");
+                            useMethodQesitm.setText(drug.useMethodQesitmText+"");
 
 
 
-                            if (atpnWarnQesitmText != "null" && !atpnWarnQesitmText.isEmpty()) {
-                                atpnWarnQesitm.setText(atpnWarnQesitmText);
+                            if (drug.atpnWarnQesitmText != "null" && !drug.atpnWarnQesitmText.isEmpty()) {
+                                atpnWarnQesitm.setText(drug.atpnWarnQesitmText);
                             } else {
                                 atpnWarnQesitm.setText("정보없음");
                             }
 
 
-                            if (atpnQesitmText != "null" && !atpnQesitmText.isEmpty()) {
-                                atpnQesitm.setText(atpnQesitmText);
+                            if (drug.atpnQesitmText != "null" && !drug.atpnQesitmText.isEmpty()) {
+                                atpnQesitm.setText(drug.atpnQesitmText);
                             } else {
                                 atpnQesitm.setText("정보없음");
                             }
 
 
-                            depositMethodQesitm.setText(depositMethodQesitmText+"");
+                            depositMethodQesitm.setText(drug.depositMethodQesitmText+"");
 
 
 
                             Glide.with(MainActivity.this)
-                                    .load(itemImageUrl)
+                                    .load(drug.itemImageUrl)
                                     .placeholder(R.drawable.baseline_image_24)
                                     .into(itemImage);
 

@@ -24,16 +24,14 @@
         android:theme="@style/Theme.Drug"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-        <activity
-            android:name=".DrugActivity"
-            android:exported="false" />
+
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="${MAPS_API_KEY}" />
 
         <activity
-            android:name=".MainActivity"
+            android:name=".DrugActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
