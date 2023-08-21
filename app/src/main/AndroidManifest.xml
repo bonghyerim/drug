@@ -25,6 +25,8 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
 
+        <activity android:name=".DrugDetailActivity">
+        </activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

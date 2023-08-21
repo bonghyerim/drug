@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -49,6 +50,17 @@ public class DrugActivity extends AppCompatActivity {
         adapter = new DrugAdapter(this, drugList);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        adapter.setOnItemClickListener(new DrugAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Drug drug) {
+                // 약 정보를 DrugDetailActivity에 전달하고 해당 액티비티를 호출
+                Intent intent = new Intent(DrugActivity.this, DrugDetailActivity.class);
+                intent.putExtra("selectedDrug", drug);
+                intent.putExtra("searchKeyword", drug.itemNameText);
+                startActivity(intent);
+            }
+        });
 
         // 검색 버튼 클릭 리스너 설정
         searchButton.setOnClickListener(new View.OnClickListener() {

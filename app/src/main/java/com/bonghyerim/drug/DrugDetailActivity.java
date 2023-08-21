@@ -1,11 +1,10 @@
 package com.bonghyerim.drug;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,17 +17,13 @@ import com.android.volley.toolbox.Volley;
 import com.bonghyerim.drug.config.Config;
 import com.bonghyerim.drug.model.Drug;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class MainActivity extends AppCompatActivity {
+public class DrugDetailActivity extends AppCompatActivity {
 
     TextView entpName, itemName, itemSeq, efcyQesitm, useMethodQesitm, atpnWarnQesitm, atpnQesitm, depositMethodQesitm;
 
@@ -37,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_drug_detail);
 
 
         entpName = findViewById(R.id.entpName);
@@ -50,13 +45,16 @@ public class MainActivity extends AppCompatActivity {
         depositMethodQesitm = findViewById(R.id.depositMethodQesitm);
         itemImage = findViewById(R.id.itemImage);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
+
+        RequestQueue queue = Volley.newRequestQueue(DrugDetailActivity.this);
+        String searchKeyword = getIntent().getStringExtra("searchKeyword");
 
         JsonObjectRequest request = new JsonObjectRequest(
                 Request.Method.GET,
-                Config.HOST + Config.PATH + Config.API_KEY + "&pageNo=1&numOfRows=10&entpName=&itemName=" + "아스피린" + "&type=json",
+                Config.HOST + Config.PATH + Config.API_KEY + "&pageNo=1&numOfRows=10&entpName=&itemName=" + searchKeyword + "&type=json",
                 null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -110,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-                            Glide.with(MainActivity.this)
+                            Glide.with(DrugDetailActivity.this)
                                     .load(drug.itemImageUrl)
                                     .placeholder(R.drawable.baseline_image_24)
                                     .into(itemImage);
@@ -132,8 +130,39 @@ public class MainActivity extends AppCompatActivity {
         queue.add(request);
 
 
+        Drug selectedDrug = getIntent().getParcelableExtra("selectedDrug");
+        if (selectedDrug != null) {
+            // 선택한 약 정보를 화면에 표시
+            itemName.setText(selectedDrug.itemNameText);
+            entpName.setText(selectedDrug.entpNameText);
+            itemSeq.setText(String.valueOf(selectedDrug.itemSeqText));
+            efcyQesitm.setText(selectedDrug.efcyQesitmText);
+            useMethodQesitm.setText(selectedDrug.useMethodQesitmText);
+            atpnWarnQesitm.setText(selectedDrug.atpnWarnQesitmText);
+            atpnQesitm.setText(selectedDrug.atpnQesitmText);
+            depositMethodQesitm.setText(selectedDrug.depositMethodQesitmText);
+
+            Glide.with(this)
+                    .load(selectedDrug.itemImageUrl)
+                    .placeholder(R.drawable.baseline_image_24)
+                    .into(itemImage);
+        }
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed(); // 뒤로가기 동작 수행
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed(); // 이전 화면으로 돌아가기
+    }
 
 }
