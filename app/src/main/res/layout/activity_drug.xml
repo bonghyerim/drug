@@ -15,14 +15,14 @@
         android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/searchEditText"
+            android:id="@+id/editKeyword"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:hint="검색어를 입력하세요" />
 
         <Button
-            android:id="@+id/searchButton"
+            android:id="@+id/btnSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="검색" />
@@ -33,7 +33,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="499dp"
         android:layout_margin="10dp"
         android:padding="16dp"
         app:cardCornerRadius="8dp"
@@ -46,5 +46,11 @@
             android:layout_margin="20dp"
             android:layout_weight="1" />
     </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="약 복용중 피할 음식 고르기" />
 
 </LinearLayout>

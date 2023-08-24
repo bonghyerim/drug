@@ -72,8 +72,8 @@ public class DrugAdapter extends RecyclerView.Adapter<DrugAdapter.ViewHolder> {
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            drugNameTextView = itemView.findViewById(R.id.drugNameTextView);
-            effectTextView= itemView.findViewById(R.id.effectTextView);
+            drugNameTextView = itemView.findViewById(R.id.txtName);
+            effectTextView= itemView.findViewById(R.id.txtVicinity);
         }
     }
 }

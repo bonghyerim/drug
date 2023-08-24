@@ -42,8 +42,8 @@ public class DrugActivity extends AppCompatActivity {
         setContentView(R.layout.activity_drug);
 
         // XML 레이아웃 요소와 연결
-        searchEditText = findViewById(R.id.searchEditText);
-        searchButton = findViewById(R.id.searchButton);
+        searchEditText = findViewById(R.id.editKeyword);
+        searchButton = findViewById(R.id.btnSearch);
         recyclerView = findViewById(R.id.recyclerView);
 
         // 어댑터 초기화 및 RecyclerView에 어댑터 설정
