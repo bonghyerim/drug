@@ -34,12 +34,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mapView = findViewById(R.id.mapView);
         editKeyword = findViewById(R.id.editKeyword);
         btnSearch = findViewById(R.id.btnSearch);
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
+        mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(new OnMapReadyCallback() {
             @Override
