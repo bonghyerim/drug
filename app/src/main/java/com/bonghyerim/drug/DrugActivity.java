@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -31,7 +32,7 @@ import java.util.ArrayList;
 public class DrugActivity extends AppCompatActivity {
 
     private EditText searchEditText;
-    private Button searchButton;
+    private ImageButton searchButton;
     private RecyclerView recyclerView;
     private DrugAdapter adapter; // 어댑터 변수
     private ArrayList<Drug> drugList = new ArrayList<>(); // 데이터 리스트
@@ -62,24 +63,28 @@ public class DrugActivity extends AppCompatActivity {
             }
         });
 
+
         // 검색 버튼 클릭 리스너 설정
+
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String searchText = searchEditText.getText().toString();
+                String apiUrl = "https://ajjjrg32tj.execute-api.ap-northeast-2.amazonaws.com/medicine/search?keyword=" + searchText;
 
                 // 검색 결과 데이터를 가져오는 API 요청 및 응답 처리
                 RequestQueue queue = Volley.newRequestQueue(DrugActivity.this);
                 JsonObjectRequest request = new JsonObjectRequest(
                         Request.Method.GET,
-                        Config.HOST + Config.PATH + Config.API_KEY + "&pageNo=1&numOfRows=10&entpName=&itemName=" + searchText + "&type=json",
+                        apiUrl,
                         null,
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
                                 try {
-                                    JSONObject body = response.getJSONObject("body");
-                                    JSONArray items = body.getJSONArray("items");
+                                    JSONArray items = response.getJSONArray("items");
+
+                                    Log.d("DrugActivity", "JSON 파싱 시작");
 
                                     // 기존 데이터 초기화
                                     drugList.clear();
@@ -87,6 +92,8 @@ public class DrugActivity extends AppCompatActivity {
                                     // 검색 결과 데이터 파싱 및 drugList에 추가
                                     for (int i = 0; i < items.length(); i++) {
                                         JSONObject item = items.getJSONObject(i);
+
+                                        Log.d("DrugActivity", "파싱 중: " + item.toString());
 
                                         Drug drug = new Drug();
                                         drug.itemNameText = item.getString("itemName");
@@ -102,10 +109,12 @@ public class DrugActivity extends AppCompatActivity {
                                         drugList.add(drug);
                                     }
 
+                                    Log.d("DrugActivity", "JSON 파싱 완료");
+
                                     // 어댑터에 데이터 변경 알림
                                     adapter.notifyDataSetChanged();
                                 } catch (JSONException e) {
-                                    Log.i("TEST", "파싱에러");
+                                    Log.e("DrugActivity", "파싱 에러: " + e.getMessage());
                                 }
                             }
                         },

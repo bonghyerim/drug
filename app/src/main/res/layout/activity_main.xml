@@ -41,23 +41,13 @@
                 android:text="Button" />
 
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
-    <!-- 리사이클러뷰 -->
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="10dp"
-        android:padding="16dp"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="4dp">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="20dp"
-            android:layout_weight="1" />
     </androidx.cardview.widget.CardView>
+
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 
 </LinearLayout>
