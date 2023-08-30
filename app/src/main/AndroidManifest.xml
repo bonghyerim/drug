@@ -32,9 +32,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".MyHealthActivity"
-            android:exported="false" />
+
         <activity android:name=".DrugDetailActivity" />
 <!--        <activity android:name=".DrugActivity" />-->
 
