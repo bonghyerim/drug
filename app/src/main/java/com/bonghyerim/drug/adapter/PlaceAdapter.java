@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bonghyerim.drug.MapActivity;
 import com.bonghyerim.drug.R;
 import com.bonghyerim.drug.model.Place;
 
