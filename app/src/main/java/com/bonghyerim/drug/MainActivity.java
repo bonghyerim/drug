@@ -6,17 +6,17 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
-import android.view.View;
+
 import android.widget.EditText;
 import android.widget.ImageButton;
-import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLngBounds;
+
 import com.google.android.libraries.places.api.Places;
-import com.google.android.libraries.places.api.model.Place;
+
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -26,18 +26,9 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.libraries.places.api.Places;
-import com.google.android.libraries.places.api.model.AutocompletePrediction;
-import com.google.android.libraries.places.api.net.FetchPlaceRequest;
-import com.google.android.libraries.places.api.net.FetchPlaceResponse;
-import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest;
-import com.google.android.libraries.places.api.net.FindAutocompletePredictionsResponse;
-import com.google.android.libraries.places.api.net.PlacesClient;
 
-import java.util.Arrays;
-import java.util.List;
+import com.google.android.gms.tasks.OnSuccessListener;
+
 
 public class MainActivity extends AppCompatActivity {
     private MapView mapView;
@@ -80,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                                 if (location != null) {
                                     LatLng userLatLng = new LatLng(location.getLatitude(), location.getLongitude());
                                     googleMap.addMarker(new MarkerOptions().position(userLatLng).title("내 위치") .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-                                     googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, 15f)); // 주석처리
+                                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, 15f)); // 주석처리
                                 }
                             }
                         });
